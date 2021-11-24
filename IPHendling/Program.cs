@@ -10,8 +10,8 @@ namespace IPHendling
             try
             {
                 // маску только в двоичном коде,если что сделаю метод,который её автоматом валидирует,если она задана числом
-                var IP = "178.16.48.200";
-                var mask = "255.255.0.0";
+                var IP = "160.255.255.255";
+                var mask = "255.224.0.0";
 
                 byte[] IPNumbers = IPCalculator.ParseIP(IP);
                 byte[] maskNumbers = IPCalculator.ParseMask(mask);

@@ -51,21 +51,10 @@ namespace IPHendling
 
         public static bool FindTypeOfPacket(byte[] hostID, byte shortMask)
         {
-            var bits = new BitArray[4];
+         
 
-            var allbits = new StringBuilder();
-
-            for (var i = 0; i < 4; i++)
-            {
-                bits[i] = new BitArray(new[] { hostID[i] });
-
-                for (var j = 7; j > -1; j--)
-                    if (bits[i][j])
-                        allbits.Append("1");
-                    else
-                        allbits.Append("0");
-            }
-
+            var allbits = GetBitsString(hostID);
+            
             allbits.Remove(0, shortMask);
 
             if (allbits.ToString().Contains('0'))
@@ -73,13 +62,13 @@ namespace IPHendling
             return true;
         }
 
-        public static StringBuilder GetBitsString(byte[] subnetMaskNumbers)
+        public static StringBuilder GetBitsString(byte[] bytes)
         {
             var bits = new BitArray[4];
             var allMaskBits = new StringBuilder();
             for (var i = 0; i < 4; i++)
             {
-                bits[i] = new BitArray(new[] { subnetMaskNumbers[i] });
+                bits[i] = new BitArray(new[] { bytes[i] });
 
                 for (var j = 7; j > -1; j--)
                     if (bits[i][j])
