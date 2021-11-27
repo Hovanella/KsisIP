@@ -79,6 +79,28 @@ namespace IPHendling
 
             return allMaskBits;
         }
+        
+        public static StringBuilder GetBitsStringWithDots(byte[] bytes)
+        {
+            //To separate octets
+            var bits = new BitArray[4];
+            var allMaskBits = new StringBuilder();
+            for (var i = 0; i < 4; i++)
+            {
+                bits[i] = new BitArray(new[] { bytes[i] });
+
+                for (var j = 7; j > -1; j--)
+                    if (bits[i][j])
+                        allMaskBits.Append("1");
+                    else
+                        allMaskBits.Append("0");
+            }
+
+            allMaskBits.Insert(8, '.');
+            allMaskBits.Insert(17, '.');
+            allMaskBits.Insert(26, '.');
+            return allMaskBits;
+        }
 
         public static byte[] ParseIP(string IP)
         {

@@ -10,8 +10,8 @@ namespace IPHendling
             try
             {
                 // маску только в двоичном коде,если что сделаю метод,который её автоматом валидирует,если она задана числом
-                var IP = "160.255.255.255";
-                var mask = "255.224.0.0";
+                var IP = "172.91.16.32";
+                var mask = "255.254.0.0";
 
                 byte[] IPNumbers = IPCalculator.ParseIP(IP);
                 byte[] maskNumbers = IPCalculator.ParseMask(mask);
@@ -20,14 +20,15 @@ namespace IPHendling
                 byte[] networkID = IPCalculator.FindNetworkID(IPNumbers, maskNumbers);
                 byte[] broadcastID = IPCalculator.FindBroadcastID(IPNumbers, maskNumbers);
 
-
+                Console.WriteLine();
                 Console.WriteLine($"Сокращённая форма маски- /{shortMask}");
-                Console.WriteLine($"Network ID - {string.Join(".", networkID)}");
-                Console.WriteLine($"Host ID - {string.Join(".", hostID)}");
-                Console.WriteLine($"Broadcast ID - {string.Join(".", broadcastID)}");
+                Console.WriteLine($"Network ID - {string.Join(".", networkID)} ( {IPCalculator.GetBitsStringWithDots(networkID)} )");
+                Console.WriteLine($"Host ID - {string.Join(".", hostID)} ( {IPCalculator.GetBitsStringWithDots(hostID)} )");
+                Console.WriteLine($"Broadcast ID - {string.Join(".", broadcastID)} ( {IPCalculator.GetBitsStringWithDots(broadcastID)} )");
                 Console.WriteLine(IPCalculator.FindTypeOfPacket(hostID, shortMask)
                     ? "Пакет является широковещательным"
                     : "Пакет не является широковещательным");
+                Console.WriteLine();
 
 
                 FirstTask(new byte[] { 172, 16, 0, 0 }, new byte[] { 255, 255, 240, 0 });
@@ -66,8 +67,7 @@ namespace IPHendling
                 FourthTask(new byte[] { 192, 168, 0, 0 }, new byte[] { 255, 255, 0, 0 }, 1024);
                 FourthTask(new byte[] { 192, 168, 0, 0 }, new byte[] { 255, 255, 0, 0 }, 1025);
                 FourthTask(new byte[] { 192, 168, 0, 0 }, new byte[] { 255, 255, 0, 0 }, 500);
-
-                FifthTask(new byte[] { 192, 168, 0, 0 }, new byte[] { 255, 255, 0, 0 }, 500);
+                FourthTask(new byte[] { 192, 168, 0, 0 }, new byte[] { 255, 255, 0, 0 }, 500);
             }
             catch (Exception e)
             {
@@ -89,8 +89,7 @@ namespace IPHendling
 
             Console.WriteLine(
                 $"Запишите IP-адрес для отправки пакета всем узлам сети (широковещательным образом) с network ID равным {string.Join(".", networkID)}, маской {string.Join(".", maskNumbers)}");
-
-
+            
             byte[] invertedMaskNumber = maskNumbers.Select(x => (byte)~x).ToArray();
             var IPResultNumber = new byte[4];
 
@@ -222,7 +221,10 @@ namespace IPHendling
             Console.WriteLine(string.Join(".", MaskByteNumbers));
         }
 
-        private static void FifthTask(byte[] networkID, byte[] subnetMaskNumbers, int hostsNumber)
+        
+        //Пятое задание закоменчено,так как алгоритм решения от слово НЕ БОЛЕЕ вместо РАВНО вроде бы не меняется.Неясно,почему,но с этим придётся жить.
+        
+        /*private static void FifthTask(byte[] networkID, byte[] subnetMaskNumbers, int hostsNumber)
         {
             if (IPCalculator.ValidateMask(subnetMaskNumbers) == false)
                 throw new Exception("Масочка плохая");
@@ -266,6 +268,8 @@ namespace IPHendling
 
             Console.WriteLine(allMaskBits);
             Console.WriteLine(string.Join(".", MaskByteNumbers));
-        }
+        }*/
+        
+        
     }
 }
