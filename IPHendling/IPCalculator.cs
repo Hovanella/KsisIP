@@ -51,8 +51,7 @@ namespace IPHendling
 
         public static bool FindTypeOfPacket(byte[] hostID, byte shortMask)
         {
-         
-
+            
             var allbits = GetBitsString(hostID);
             
             allbits.Remove(0, shortMask);
@@ -147,6 +146,8 @@ namespace IPHendling
         public static bool ValidateIP(byte[] ipNumbers)
         {
             //TODO
+            if (string.Join(".", ipNumbers) == "127.0.0.1")
+                throw new Exception("Loopback");
             return true;
         }
     }

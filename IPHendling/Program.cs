@@ -10,8 +10,8 @@ namespace IPHendling
             try
             {
                 // маску только в двоичном коде,если что сделаю метод,который её автоматом валидирует,если она задана числом
-                var IP = "172.91.16.32";
-                var mask = "255.254.0.0";
+                var IP = "128.0.0.1";
+                var mask = "224.0.0.0";
 
                 byte[] IPNumbers = IPCalculator.ParseIP(IP);
                 byte[] maskNumbers = IPCalculator.ParseMask(mask);
@@ -53,7 +53,7 @@ namespace IPHendling
                 SecondTask(new byte[] { 3, 255, 255, 255 }, new byte[] { 252, 0, 0, 0 });
                 SecondTask(new byte[] { 140, 192, 230, 127 }, new byte[] { 255, 255, 255, 248 });
                 SecondTask(new byte[] { 31, 1, 1, 1 }, new byte[] { 224, 0, 0, 0 });
-                SecondTask(new byte[] { 63, 255, 255, 255 }, new byte[] { 192, 0, 0, 0 });
+                SecondTask(new byte[] { 63, 255, 255, 255 }, new byte[] { 224, 0, 0, 0 });
                 SecondTask(new byte[] { 155, 7, 255, 255 }, new byte[] { 255, 248, 0, 0 });
                 SecondTask(new byte[] { 155, 7, 255, 255 }, new byte[] { 255, 248, 0, 0 });
                 SecondTask(new byte[] { 140, 192, 230, 127 }, new byte[] { 255, 255, 255, 248 });
