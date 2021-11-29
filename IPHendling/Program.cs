@@ -10,8 +10,8 @@ namespace IPHendling
             try
             {
                 // маску только в двоичном коде,если что сделаю метод,который её автоматом валидирует,если она задана числом
-                var IP = "128.0.0.1";
-                var mask = "224.0.0.0";
+                var IP = "255.255.255.255";
+                var mask = "255.255.255.255";
 
                 byte[] IPNumbers = IPCalculator.ParseIP(IP);
                 byte[] maskNumbers = IPCalculator.ParseMask(mask);
@@ -68,6 +68,8 @@ namespace IPHendling
                 FourthTask(new byte[] { 192, 168, 0, 0 }, new byte[] { 255, 255, 0, 0 }, 1025);
                 FourthTask(new byte[] { 192, 168, 0, 0 }, new byte[] { 255, 255, 0, 0 }, 500);
                 FourthTask(new byte[] { 192, 168, 0, 0 }, new byte[] { 255, 255, 0, 0 }, 500);
+                
+                FourthTask(new byte[] { 192, 168, 0, 0 }, new byte[] { 255, 255, 0, 0 }, 672);
             }
             catch (Exception e)
             {
@@ -119,17 +121,15 @@ namespace IPHendling
 
             if (networkID.All(x => x == 0))
             {
-                if (IsBroadcastPacket)
-                    Console.WriteLine("Всем узлам в сети отправителя");
-                else
-                    Console.WriteLine($"Узлу с HOST ID {string.Join(".", hostID)} в сети отправителя");
+                Console.WriteLine(IsBroadcastPacket
+                    ? "Всем узлам в сети отправителя"
+                    : $"Узлу с HOST ID {string.Join(".", hostID)} в сети отправителя");
             }
             else
             {
-                if (IsBroadcastPacket)
-                    Console.WriteLine($"Всем узлам подсети с Network ID {string.Join(".", networkID)}");
-                else
-                    Console.WriteLine($"Узлу с Network ID {string.Join(".", networkID)} и HOST ID {string.Join(".", hostID)}");
+                Console.WriteLine(IsBroadcastPacket
+                    ? $"Всем узлам подсети с Network ID {string.Join(".", networkID)}"
+                    : $"Узлу с Network ID {string.Join(".", networkID)} и HOST ID {string.Join(".", hostID)}");
             }
 
 

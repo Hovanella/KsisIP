@@ -56,7 +56,7 @@ namespace IPHendling
             
             allbits.Remove(0, shortMask);
 
-            if (allbits.ToString().Contains('0'))
+            if (allbits.ToString().Contains('0') || !allbits.ToString().Contains('1'))
                 return false;
             return true;
         }
